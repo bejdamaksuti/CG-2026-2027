@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 3 - Solar System | Maja Jankuloska 132151</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #000; }
+    canvas { display: block; }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+<script type="module">
+  // Lab 3 - Scene graph / Solar system
+  // Maja Jankuloska, ID 132151
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(8, 10, 14);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // MINIMUM 1: PointLight at the center + AmbientLight
+  const pointLight = new THREE.PointLight(0xffffff, 400, 0, 1.6);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 2.3);
+  scene.add(pointLight, ambientLight);
+
+  // MINIMUM 2: Sun at the origin, added directly to the scene (root)
+  const sun = new THREE.Mesh(
+    new THREE.SphereGeometry(2, 32, 24),
+    new THREE.MeshStandardMaterial({ color: 0xb44d1a })
+  );
+  scene.add(sun);
+
+  // Dark spot on the Sun, only so its self-rotation is visible (Challenge 1)
+  const sunSpot = new THREE.Mesh(
+    new THREE.SphereGeometry(0.4, 16, 12),
+    new THREE.MeshStandardMaterial({ color: 0x5a1f00 })
+  );
+  sunSpot.position.set(1.9, 0.5, 0);
+  sun.add(sunSpot);
+
+  // MINIMUM 3: empty node earthOrbit, child of the Sun
+  const earthOrbit = new THREE.Object3D();
+  sun.add(earthOrbit);
+
+  // MINIMUM 4: Earth at x = 6, child of earthOrbit
+  const earth = new THREE.Mesh(
+    new THREE.SphereGeometry(0.8, 32, 24),
+    new THREE.MeshStandardMaterial({ color: 0x1E40FF, roughness: 0.9 })
+  );
+  earth.position.x = 6;
+  earthOrbit.add(earth);
+
+  // STANDARD 1: moonOrbit (child of Earth) + Moon (child of moonOrbit, sideways offset)
+  const moonOrbit = new THREE.Object3D();
+  earth.add(moonOrbit);
+
+  const moon = new THREE.Mesh(
+    new THREE.SphereGeometry(0.25, 24, 16),
+    new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 1 })
+  );
+  moon.position.x = 1.5;
+  moonOrbit.add(moon);
+
+  // CHALLENGE 2: second planet (Mars) with its own moon (Phobos) -> branching scene graph
+  const marsOrbit = new THREE.Object3D();
+  sun.add(marsOrbit);
+
+  const mars = new THREE.Mesh(
+    new THREE.SphereGeometry(0.5, 32, 24),
+    new THREE.MeshStandardMaterial({ color: 0xc1440e, roughness: 0.9 })
+  );
+  mars.position.x = 10;
+  marsOrbit.add(mars);
+
+  const phobosOrbit = new THREE.Object3D();
+  mars.add(phobosOrbit);
+
+  const phobos = new THREE.Mesh(
+    new THREE.SphereGeometry(0.15, 16, 12),
+    new THREE.MeshStandardMaterial({ color: 0x998877, roughness: 1 })
+  );
+  phobos.position.x = 1;
+  phobosOrbit.add(phobos);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+
+  // Render loop
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+
+    sun.rotation.y += 0.002;          // Challenge 1: Sun spins around itself
+    earthOrbit.rotation.y += 0.01;    // Minimum 5
+    moonOrbit.rotation.y += 0.04;     // Standard 2
+    earth.rotation.y += 0.05;         // Standard 2
+    marsOrbit.rotation.y += 0.006;    // Challenge 2: different speed
+    phobosOrbit.rotation.y += 0.06;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+</body>
+</html>
