@@ -63,3 +63,4 @@ function animate() {
 requestAnimationFrame(animate)
 renderer.render(scene, cameras[current])
 }
+animate()
