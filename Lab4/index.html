@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab 4 - Robotic Hand | Maja Jankuloska 132151</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; overflow: hidden; background: #101722; color: #eaf0f7; font: 14px/1.5 system-ui, sans-serif; }
+    canvas { display: block; }
+    .panel { position: fixed; top: 16px; left: 16px; max-width: 290px; padding: 14px 16px; border: 1px solid #ffffff22; border-radius: 12px; background: #111c2bdd; backdrop-filter: blur(8px); pointer-events: none; }
+    .panel h1 { margin: 0 0 5px; font-size: 16px; }
+    .panel p { margin: 0; color: #b8c6d8; }
+    .hint { position: fixed; right: 16px; bottom: 14px; color: #b8c6d8; background: #111c2bdd; padding: 8px 12px; border-radius: 8px; }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+  </script>
+</head>
+<body>
+  <div class="panel"><h1>Lab 4 — Robotic Hand</h1><p>Articulated palm, four fingers and an opposable thumb. Drag to orbit; scroll to zoom.</p></div>
+  <div class="hint">Robotic hand · Three.js</div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
