@@ -3,7 +3,7 @@
 **Student:** Maja Jankuloska  
 **Student ID:** 132151
 
-This repository contains the five Computer Graphics labs covered so far. Each lab is in its own folder and can be opened independently in a browser.
+This repository contains six Computer Graphics labs. Each lab is in its own folder and can be opened independently in a browser.
 
 ## Labs
 
@@ -14,6 +14,7 @@ This repository contains the five Computer Graphics labs covered so far. Each la
 | `Lab3` | Solar system and scene hierarchy | `Lab3/index.html` |
 | `Lab4` | Robotic hand | `Lab4/index.html` |
 | `Lab5` | Shape from BufferGeometry | `Lab5/index.html` |
+| `Lab6` | PLY model loading and camera projections | `Lab6/index.html` |
 
 ## Run a lab
 
@@ -30,6 +31,7 @@ Then open one of these addresses:
 - `http://localhost:8000/Lab3/`
 - `http://localhost:8000/Lab4/`
 - `http://localhost:8000/Lab5/`
+- `http://localhost:8000/Lab6/`
 
 ## Lab notes
 
@@ -37,5 +39,11 @@ Then open one of these addresses:
 - **Lab 3:** The Sun is the root; Earth and Mars orbit under it, while the Moon is parented to Earth and Phobos is parented to Mars.
 - **Lab 4:** The robotic hand is built from Three.js meshes. It includes a palm, four segmented fingers, visible joints and an opposable thumb on the left side of the palm.
 - **Lab 5:** The crystal is built from a `Float32Array` position attribute and an explicit index buffer of triangular faces. It does not load a pre-made model.
+- **Lab 6:** Loads `Lab6/models/3dModel.ply` with `PLYLoader`, normalizes the geometry, and displays three copies with different materials. It supports Perspective and Orthographic cameras, switchable with the on-screen button or Spacebar, and uses `OrbitControls` for navigation.
 
-`Archive/Lab6_Reference` preserves the unrelated Lab 6 files that were present in the supplied ZIP. It is not one of the five requested submissions.
+## Lab 6 controls
+
+- Left mouse drag: orbit the scene
+- Mouse wheel: zoom
+- Right mouse drag: pan
+- Spacebar or the on-screen button: switch between Perspective and Orthographic cameras
